@@ -1,0 +1,125 @@
+myblog_project/
+|-- myblog/
+|   |-- __init__.py
+|   |-- settings.py
+|   |-- urls.py
+|   |-- wsgi.py
+|-- blog/
+|   |-- __init__.py
+|   |-- admin.py
+|   |-- models.py
+|   |-- urls.py
+|   |-- views.py
+|   |-- forms.py
+|   |-- templates/
+|       |-- blog/
+|           |-- post_list.html
+|           |-- post_detail.html
+|-- manage.py
+
+
+
+
+
+
+myblog_project/: This is the root directory of your Django project.
+
+myblog/: This directory contains the settings for your Django project.
+
+settings.py: Configuration settings for your project.
+urls.py: URL configuration for your project.
+wsgi.py: WSGI application entry point.
+blog/: This is a Django app within your project that represents the blog functionality.
+
+admin.py: Register your models to the Django admin interface.
+models.py: Define your database models (e.g., Post model).
+urls.py: URL configuration for the blog app.
+views.py: Define view functions or classes to handle HTTP requests.
+forms.py: Define forms for user input.
+templates/: Directory for HTML templates.
+blog/: Subdirectory for blog app templates.
+post_list.html: Template for displaying a list of blog posts.
+post_detail.html: Template for displaying a single blog post.
+manage.py: Django's command-line utility for interacting with the project (e.g., running the development server, creating migrations).
+
+This is a basic structure for a Django project with a single app (blog). In a real-world scenario, you might have additional apps for different functionalities, such as authentication, comments, etc.
+
+
+
+
+
+
+Web Servers: Web servers like Apache, Nginx, or Gunicorn receive incoming HTTP requests from clients (such as web browsers) and are responsible for handling these requests. However, web servers are not typically designed to directly execute Python code.
+
+Python Web Applications or Frameworks: Python web applications or frameworks like Django, Flask, or Pyramid are responsible for processing incoming HTTP requests, generating appropriate responses, and sending them back to the web server. These frameworks are capable of handling Python code and generating dynamic content for web applications.
+
+WSGI Interface: WSGI serves as the bridge between web servers and Python web applications/frameworks. It defines a standard interface that allows web servers to communicate with Python applications. Essentially, WSGI provides a contract that web servers and applications can adhere to, enabling them to work together seamlessly.
+
+In a Django project, the wsgi.py file serves as the entry point for WSGI-compatible web servers. It typically contains a WSGI application object that is responsible for handling incoming requests and dispatching them to the appropriate parts of your Django application.
+
+
+
+Here's a simple example of a wsgi.py file in a Django project:
+
+import os
+from django.core.wsgi import get_wsgi_application
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'myblog.settings')
+
+application = get_wsgi_application()
+
+
+
+In this example, get_wsgi_application() loads the Django application specified in the DJANGO_SETTINGS_MODULE environment variable and returns a WSGI application object, which can be used by WSGI-compatible web servers to serve the Django application.
+
+
+
+
+
+CLIENT'S BROWSER
+    |
+    v
+    HTTP REQUEST
+    |
+    v
+    WEB SERVER (e.g., Nginx, Apache)
+    |
+    v
+    REVERSE PROXY (if configured)
+    |
+    v
+    WSGI SERVER (e.g., Gunicorn, uWSGI, Daphne)
+    |
+    v
+    DJANGO APPLICATION
+    |
+    v
+    URL DISPATCHER (urls.py)
+    |
+    v
+    VIEW FUNCTION OR CLASS (views.py)
+    |
+    v
+    MODEL LAYER (models.py)
+    |
+    v
+    DATABASE
+    |
+    v
+    DJANGO APPLICATION
+    |
+    v
+    TEMPLATE RENDERING
+    |
+    v
+    HTTP RESPONSE
+    |
+    v
+    REVERSE PROXY (if configured)
+    |
+    v
+    WEB SERVER
+    |
+    v
+    CLIENT'S BROWSER
+
